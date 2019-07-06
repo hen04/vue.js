@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue.js</title>
+</head>
+<body>
+<style>
+	.red {
+		color: red;
+	}
+
+	[v-cloak] {
+		display: none;
+	}
+</style>
+	<h1>Vue</h1>
+
+	<div id="app" v-cloak>
+		<p v-bind:class="{ red: condition }" v-bind:title="makeTooltip()">{{ title }}</p>
+
+		<div v-if="condition">
+			TRUE
+		</div>
+		<div v-else>
+			FALSE
+		</div>
+		<div v-show="condition">
+			V-SHOW
+		</div>
+
+		<div v-if="tableShow">
+			<div v-for="(item, index) in filteredList" v-bind:key="item.title">
+				{{ item.name}} - {{ item.website}} - {{ index }}
+			</div>
+		</div>
+
+		<button type="button" v-on:click="toggleTableShow">
+			{{ tableShowButton }}
+		</button>
+
+		<input type="text" v-bind:value="title">
+		<input type="text" v-model="title">
+
+	</div>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		window.vm = new Vue({
+			el: '#app',
+			data: function () {
+				return {
+					tableShow: true,
+					title: 'Тестовая строка из данных',
+					tooltip: 'Всплывающая подсказка!',
+					condition: true,
+					list: [],
+					testClasses: 'red'
+				}
+			},
+			computed: { // вычисляемые свойства
+				tableShowButton: function() {
+					return this.tableShow ? 'Скрыть' : 'Показать'
+				},
+				filteredList: function () {
+					return this.list.filter(function (item) {
+						return item.website.endsWith('.org');
+					});
+				}
+			},
+			created: function () {
+				this.loadData()
+			},
+			watch: {
+				tableShow: {
+					handler: 'tableShowHandler'
+				}
+			},
+			methods: {
+				tableShowHandler: function() {
+					console.log(1);
+				},
+				toggleTableShow: function() {
+					this.tableShow = !this.tableShow
+				},
+				makeTooltip: function () {
+					return 'VIP ' + this.tooltip
+				},
+				addToList: function (event, count) {
+					console.log(event);
+					this.list.push({ title: 'добавленный элемент'});
+				},
+				loadData: function() {
+					var self = this;
+
+					axios.get('https://jsonplaceholder.typicode.com/users')
+						.then (function(response) {
+							self.list = response.data
+						})
+				}
+			}
+		});
+
+	</script>
+</body>
+</html>
