@@ -1,0 +1,32 @@
+[
+	{
+		"image": "images/1.jpg",
+		"firstName": "Иван",
+		"secondName": "Иванович",
+		"lastName": "Петров"
+	},
+	{
+		"image": "",
+		"firstName": "Петр",
+		"secondName": "Петрович",
+		"lastName": "Иванов"
+	},
+	{
+		"image": "images/3.jpg",
+		"firstName": "Сергей",
+		"secondName": "Сергеевич",
+		"lastName": "Степанов"
+	},
+	{
+		"image": "images/4.jpg",
+		"firstName": "Степан",
+		"secondName": "Степанович",
+		"lastName": "Сергеев"
+	},
+	{
+		"image": "",
+		"firstName": "Марья",
+		"secondName": "Петровна",
+		"lastName": "Сидорова"
+	}
+]
