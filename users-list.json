@@ -1,32 +1,22 @@
 [
 	{
 		"image": "images/1.jpg",
-		"firstName": "Иван",
-		"secondName": "Иванович",
-		"lastName": "Петров"
+		"name": "Иван Петров"
 	},
 	{
 		"image": "",
-		"firstName": "Петр",
-		"secondName": "Петрович",
-		"lastName": "Иванов"
+		"name": "Петр Иванов"
 	},
 	{
 		"image": "images/3.jpg",
-		"firstName": "Сергей",
-		"secondName": "Сергеевич",
-		"lastName": "Степанов"
+		"name": "Сергей Степанов"
 	},
 	{
 		"image": "images/4.jpg",
-		"firstName": "Степан",
-		"secondName": "Степанович",
-		"lastName": "Сергеев"
+		"name": "Степан Сергеев"
 	},
 	{
 		"image": "",
-		"firstName": "Марья",
-		"secondName": "Петровна",
-		"lastName": "Сидорова"
+		"name": "Марья Сидорова"
 	}
 ]
