@@ -59,9 +59,8 @@
 	</style>
 
 	<div id="users" class="wrapper" v-cloak>
-		<h3>{{counter()}}</h3>
+		<h3>{{ total }} пользователей</h3>
 		<div class="list-of-users" v-if="tableShow">
-<!--		<div class="list-of-users" v-show="condition">-->
 			<div v-for="item in list" class="list-of-users__row">
 				<div class="list-of-users__cell list-of-users__cell--image">
 					<div v-if="item.image !== ''">
@@ -72,13 +71,7 @@
 					</div>
 				</div>
 				<div class="list-of-users__cell">
-					{{ item.firstName }}
-				</div>
-				<div class="list-of-users__cell">
-					{{ item.secondName }}
-				</div>
-				<div class="list-of-users__cell">
-					{{ item.lastName }}
+					{{ item.name }}
 				</div>
 			</div>
 		</div>
@@ -86,6 +79,7 @@
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script>
 		window.vm = new Vue({
 			el: '#users',
@@ -103,13 +97,12 @@
 			computed: {
 				tableShowButton: function() {
 					return this.tableShow ? 'Скрыть пользователей' : 'Показать пользователей'
+				},
+				total: function () {
+					return this.list.length;
 				}
 			},
 			methods: {
-				counter: function() {
-					const arrayLength = this.list.length;
-					return arrayLength + " " + this.title;
-				},
 				tooltipOnBtn: function() {
 					return this.tooltip;
 				},
@@ -117,38 +110,13 @@
 					this.tableShow = !this.tableShow
 				},
 				loadData: function () {
-					this.list = [
-						{
-							image: 'images/1.jpg',
-							firstName: 'Иван',
-							secondName: 'Иванович',
-							lastName: 'Петров'
-						},
-						{
-							image: '',
-							firstName: 'Петр',
-							secondName: 'Петрович',
-							lastName: 'Иванов'
-						},
-						{
-							image: 'images/3.jpg',
-							firstName: 'Сергей',
-							secondName: 'Сергеевич',
-							lastName: 'Степанов'
-						},
-						{
-							image: 'images/4.jpg',
-							firstName: 'Степан',
-							secondName: 'Степанович',
-							lastName: 'Сергеев'
-						},
-						{
-							image: '',
-							firstName: 'Марья',
-							secondName: 'Петровна',
-							lastName: 'Сидорова'
-						}
-					]
+					var self = this;
+
+					axios.get('https://jsonplaceholder.typicode.com/users')
+						.then (function (response) {
+							console.log(('Данные загружены'));
+							self.list = response.data
+						})
 				}
 			}
 

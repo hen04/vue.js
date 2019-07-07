@@ -29,11 +29,23 @@
 			V-SHOW
 		</div>
 
-		<div v-if="tableShow">
-			<div v-for="(item, index) in filteredList" v-bind:key="item.title">
-				{{ item.name}} - {{ item.website}} - {{ index }}
-			</div>
+		<div v-for="(item, index) in filteredList" v-bind:key="item.title">
+			{{ item.name }} - {{ item.website }} - {{ index }}
 		</div>
+
+		<hr>
+
+		<users-list v-bind:users="list" v-on:click="removeUser($event)"></users-list>
+
+		<hr>
+
+		<users-list v-bind:users="filteredList"></users-list>
+
+		<hr>
+
+		<div is="users-list" v-bind:users="filteredList"></div>
+
+		<hr>
 
 		<button type="button" v-on:click="toggleTableShow">
 			{{ tableShowButton }}
@@ -44,13 +56,49 @@
 
 	</div>
 
-
+	<template id="table">
+		<div>
+			<div v-for="(item, index) in users" v-bind:key="item.title">
+				{{ item.name}} - {{ item.website}} - {{ index }}
+				<button type="button" v-on:click="removeUser(item.id)">
+					x
+				</button>
+			</div>
+			<strong>Total users: {{ total }}</strong>
+		</div>
+	</template>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script>
+
+		var UsersList = {
+			template: '#table',
+			props: {
+				users: {
+					type: Array,
+					required: true
+				}
+			},
+			computed: {
+				total: function () {
+					return this.users.length
+				}
+			},
+			methods: {
+				removeUser: function (id) {
+					this.$emit('click', id)
+				}
+			}
+		}
+
+		// ============================
+
 		window.vm = new Vue({
 			el: '#app',
+			components: {
+				'users-list': UsersList
+			},
 			data: function () {
 				return {
 					tableShow: true,
@@ -80,6 +128,11 @@
 				}
 			},
 			methods: {
+				removeUser: function(id) {
+					this.list = this.list.filter(function (item) {
+						return item.id !== id
+					})
+				},
 				tableShowHandler: function() {
 					console.log(1);
 				},
