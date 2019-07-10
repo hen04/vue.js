@@ -71,7 +71,13 @@
 					</div>
 				</div>
 				<div class="list-of-users__cell">
-					{{ item.name }}
+					{{ item.firstName }}
+				</div>
+				<div class="list-of-users__cell">
+					{{ item.secondName }}
+				</div>
+				<div class="list-of-users__cell">
+					{{ item.lastName }}
 				</div>
 			</div>
 		</div>
@@ -79,7 +85,6 @@
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script>
 		window.vm = new Vue({
 			el: '#users',
@@ -110,13 +115,38 @@
 					this.tableShow = !this.tableShow
 				},
 				loadData: function () {
-					var self = this;
-
-					axios.get('https://jsonplaceholder.typicode.com/users')
-						.then (function (response) {
-							console.log(('Данные загружены'));
-							self.list = response.data
-						})
+					this.list = [
+						{
+							image: 'images/1.jpg',
+							firstName: 'Иван',
+							secondName: 'Иванович',
+							lastName: 'Петров'
+						},
+						{
+							image: '',
+							firstName: 'Петр',
+							secondName: 'Петрович',
+							lastName: 'Иванов'
+						},
+						{
+							image: 'images/3.jpg',
+							firstName: 'Сергей',
+							secondName: 'Сергеевич',
+							lastName: 'Степанов'
+						},
+						{
+							image: 'images/4.jpg',
+							firstName: 'Степан',
+							secondName: 'Степанович',
+							lastName: 'Сергеев'
+						},
+						{
+							image: '',
+							firstName: 'Марья',
+							secondName: 'Петровна',
+							lastName: 'Сидорова'
+						}
+					]
 				}
 			}
 
